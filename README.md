@@ -1,6 +1,6 @@
-# KATHIRAVAN V — Personal Developer Portfolio
+# KATHIRAVAN V — Personal Full Stack Developer Portfolio
 
-A modern, high-performance developer portfolio website designed for **KATHIRAVAN V**, an aspiring Frontend Developer seeking junior frontend engineering roles and freelance clients.
+A modern, high-performance developer portfolio website designed for **KATHIRAVAN V**, **FULL STACK DEVELOPER**.
 
 Built with semantic **HTML5**, **CSS3**, and **Vanilla JavaScript** (zero heavy frameworks, zero runtime bloat).
 
@@ -11,7 +11,7 @@ Built with semantic **HTML5**, **CSS3**, and **Vanilla JavaScript** (zero heavy 
 ```text
 KATHIRAVAN-PORTFILIO/
 ├── index.html       # Main semantic HTML structure, SEO tags, accessible landmarks
-├── style.css        # Pure CSS design system: dark-mode palette, glow effects, responsive breakpoints
+├── style.css        # Pure CSS design system: emerald/mint green dark theme, glow effects, responsive breakpoints
 ├── script.js        # Vanilla JS: mobile navigation, scroll-reveal, back-to-top, toast feedback, modal
 ├── serve.js         # Zero-dependency local development server (Node.js)
 └── README.md        # Documentation, customization guide & deployment instructions
@@ -21,18 +21,38 @@ KATHIRAVAN-PORTFILIO/
 
 ## 🎨 Design System & Color Palette
 
-- **Main Background**: `#080D18`
-- **Secondary Background**: `#0D1423`
-- **Cards Background**: `#101A2B` (Hover: `#142238`)
-- **Primary Blue**: `#4D8DFF`
-- **Bright Blue**: `#6EABFF`
-- **Main Text**: `#F2F6FF`
-- **Secondary Text**: `#9AA8BD`
-- **Borders**: `rgba(77, 141, 255, 0.15)`
+Inspired by Murad Hossain's **AI Business Intelligence Dashboard — Finance & Operations** theme:
+- **Main Background**: `#060907` (Deep obsidian dark canvas)
+- **Secondary Background**: `#0A0F0C`
+- **Cards Background**: `#0D1611` (Hover: `#121E17`)
+- **Primary Emerald Green**: `#10B981`
+- **Bright Tech-Green / Mint**: `#34D399`
+- **Luminous Mint Highlight**: `#6EE7B7`
+- **Deep Emerald Accent**: `#059669`
+- **Main Text**: `#F0FAF4`
+- **Secondary Text**: `#96ABA0`
+- **Borders**: `rgba(16, 185, 129, 0.16)` (Hover: `rgba(52, 211, 153, 0.42)`)
+- **Glow & Accents**: `rgba(16, 185, 129, 0.35)`
 - **Typography**: 
+  - Brand & Highlight Name: **Outfit** (Google Fonts)
   - Headings: **Space Grotesk** (Google Fonts)
   - Body: **DM Sans** (Google Fonts)
   - Code/Monospace: **SFMono / Consolas / Menlo**
+
+---
+
+## 🔗 Connected Profiles & Contact Details
+
+All contact and social links are fully configured across the website:
+
+| Channel | Destination / Value | Order in Connect Bar |
+| :--- | :--- | :--- |
+| **1. WhatsApp** | `https://wa.me/919080864542` (Number: `9080864542`) | 1st (Single line) |
+| **2. Instagram** | `https://www.instagram.com/black._.heart._.141?vrfl=MTVwY2xrYnl4YTlmcw%3D%3D` | 2nd (Single line) |
+| **3. LinkedIn** | `https://www.linkedin.com/in/kathiravan-v` | 3rd (Single line) |
+| **4. GitHub** | `https://github.com/Kathiravan-4344` | 4th (Single line) |
+| **5. Contact** | `tel:+919080864542` (Number: `+919080864542`) | 5th (Single line) |
+| **Email** | `kathiravan.v.141@gmail.com` | Direct Mailto & One-Click Copy |
 
 ---
 
@@ -72,7 +92,19 @@ Search for `USER NOTE:` in `index.html` and `script.js` to easily customize your
    - In `index.html`:
      - Replace `https://www.linkedin.com/in/kathiravan-v` with your actual LinkedIn profile URL (in the mobile drawer, hero section, and contact section).
 
-3. **Resume / CV (Optional)**:
+3. **WhatsApp Number**:
+   - In `index.html`:
+     - Replace `91XXXXXXXXXX` in `https://wa.me/91XXXXXXXXXX` with your actual WhatsApp phone number (with country code, e.g., 91 for India followed by your 10-digit number).
+
+4. **Contact / Phone Number**:
+   - In `index.html`:
+     - Replace `+91XXXXXXXXXX` in `tel:+91XXXXXXXXXX` with your real mobile/phone number.
+
+5. **Instagram Username**:
+   - In `index.html`:
+     - Replace `your-username` in `https://instagram.com/your-username` with your Instagram handle.
+
+6. **Resume / CV (Optional)**:
    - If you want to add a "Download Resume" button, you can place your `resume.pdf` in the root folder and add an `<a href="resume.pdf" download class="btn btn-secondary">Download Resume</a>` in the hero section.
 
 ---
@@ -92,8 +124,8 @@ git add .
 # Create initial commit
 git commit -m "Initial commit: Kathiravan V. portfolio website"
 
-# Link to your GitHub repository (create a new repo named 'portfolio' on GitHub first)
-git remote add origin https://github.com/Kathiravan-4344/portfolio.git
+# Link to your GitHub repository
+git remote add origin https://github.com/Kathiravan-4344/meet-kathiravan.git
 
 # Push your code
 git branch -M main
@@ -103,8 +135,8 @@ git push -u origin main
 ### Step 2: Deploy to Vercel (100% Free)
 1. Go to [vercel.com](https://vercel.com/) and sign in with your GitHub account (`Kathiravan-4344`).
 2. Click **"Add New..."** → **"Project"**.
-3. Select your `portfolio` repository from the list.
+3. Select your `meet-kathiravan` repository from the list.
 4. Framework Preset: **Other** (Static HTML).
 5. Root Directory: `./` (Leave as default).
 6. Click **"Deploy"**.
-7. In ~15 seconds, Vercel will give you a live production URL (e.g., `https://kathiravan-portfolio.vercel.app`) with free SSL, automatic global CDN, and automatic redeployment every time you `git push`!
+7. In ~15 seconds, Vercel will give you a live production URL: **`https://meet-kathiravan.vercel.app/`** with free SSL, automatic global CDN, and automatic redeployment every time you `git push`!

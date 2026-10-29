@@ -175,13 +175,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
     // Reveal all elements immediately if user prefers reduced motion or no observer support
-    revealElements.forEach((el) => el.classList.add("active"));
+    revealElements.forEach((el) => {
+      el.classList.add("active");
+      if (el.classList.contains("skill-category-card")) {
+        el.querySelectorAll(".skill-progress-fill").forEach((fill) => {
+          const target = fill.getAttribute("data-percentage");
+          if (target) fill.style.width = `${target}%`;
+        });
+      }
+    });
   } else {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
+
+            // Animate progress bars when skill category card enters viewport
+            if (entry.target.classList.contains("skill-category-card")) {
+              entry.target
+                .querySelectorAll(".skill-progress-fill")
+                .forEach((fill) => {
+                  const target = fill.getAttribute("data-percentage");
+                  if (target) {
+                    fill.style.width = `${target}%`;
+                  }
+                });
+            }
+
             // Unobserve once revealed for performance
             observer.unobserve(entry.target);
           }
@@ -194,10 +215,10 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     );
 
-    revealElements.forEach((el, index) => {
+    revealElements.forEach((el) => {
       // Add slight staggered delay to adjacent elements inside grids
       const parentGrid = el.closest(
-        ".about-cards-grid, .skills-grid, .projects-grid",
+        ".about-cards-grid, .skills-categories-grid, .projects-grid",
       );
       if (parentGrid) {
         const siblings = Array.from(parentGrid.children);
@@ -260,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     copyEmailBtn.addEventListener("click", async () => {
       const emailToCopy =
         copyEmailBtn.getAttribute("data-email") ||
-        "kathiravan.developer@example.com";
+        "kathiravan.v.141@gmail.com";
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           await navigator.clipboard.writeText(emailToCopy);
