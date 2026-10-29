@@ -354,4 +354,144 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }
   });
+
+  /* --------------------------------------------------------------------------
+     10. MINIMAL 3D UI CURSOR (Inspired by James Gillen's 3D UI Animation)
+     -------------------------------------------------------------------------- */
+  const init3DCursor = () => {
+    // Only initialize on desktop devices with mouse / fine pointer support and screen > 900px
+    const isFinePointer = window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches;
+    if (!isFinePointer || window.innerWidth <= 900) return;
+
+    const cursorContainer = document.getElementById("cursor3d");
+    const cursorAura = document.getElementById("cursor3dAura");
+    const cursorPointer = document.getElementById("cursor3dPointer");
+    const cursorRipple = document.getElementById("cursor3dRipple");
+
+    if (!cursorContainer || !cursorAura || !cursorPointer) return;
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let auraX = -100;
+    let auraY = -100;
+    let lastX = 0;
+    let lastY = 0;
+    let tiltX = 0;
+    let tiltY = 0;
+    let tiltZ = 0;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let targetTiltZ = 0;
+    let isHovering = false;
+    let isClicking = false;
+    let isVisible = false;
+
+    // Show custom cursor when mouse moves
+    const onMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        document.body.classList.add("has-custom-cursor");
+        cursorContainer.classList.add("active");
+        auraX = mouseX;
+        auraY = mouseY;
+      }
+
+      // Calculate movement velocity for spatial 3D tilting
+      const vx = e.clientX - lastX;
+      const vy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      // 3D physics tilt angles based on velocity
+      targetTiltX = Math.max(-28, Math.min(28, -vy * 1.5));
+      targetTiltY = Math.max(-28, Math.min(28, vx * 1.5));
+      targetTiltZ = Math.max(-16, Math.min(16, vx * 0.7));
+
+      // Interactive hover check
+      const targetEl = e.target;
+      if (
+        targetEl &&
+        targetEl.closest &&
+        targetEl.closest(
+          'a, button, [role="button"], .btn, .social-link, .project-card, .contact-card, .preview-card, input[type="submit"], select, .brand-logo'
+        )
+      ) {
+        if (!isHovering) {
+          isHovering = true;
+          cursorContainer.classList.add("is-hovering");
+        }
+      } else {
+        if (isHovering) {
+          isHovering = false;
+          cursorContainer.classList.remove("is-hovering");
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    // Tactile Click Animation
+    window.addEventListener("mousedown", (e) => {
+      isClicking = true;
+      cursorContainer.classList.add("is-clicking");
+
+      // Trigger 3D tactile shockwave ripple
+      if (cursorRipple) {
+        cursorRipple.style.left = `${e.clientX}px`;
+        cursorRipple.style.top = `${e.clientY}px`;
+        cursorRipple.classList.remove("animate-ripple");
+        void cursorRipple.offsetWidth;
+        cursorRipple.classList.add("animate-ripple");
+      }
+    });
+
+    window.addEventListener("mouseup", () => {
+      isClicking = false;
+      cursorContainer.classList.remove("is-clicking");
+    });
+
+    // Window leave / enter handlers
+    document.addEventListener("mouseleave", () => {
+      cursorContainer.classList.remove("active");
+      isVisible = false;
+    });
+
+    document.addEventListener("mouseenter", () => {
+      cursorContainer.classList.add("active");
+      isVisible = true;
+    });
+
+    // High performance render loop via requestAnimationFrame
+    const renderLoop = () => {
+      if (isVisible) {
+        // Smooth trailing aura with spring interpolation (lerp)
+        auraX += (mouseX - auraX) * 0.18;
+        auraY += (mouseY - auraY) * 0.18;
+        cursorAura.style.transform = `translate3d(${auraX.toFixed(1)}px, ${auraY.toFixed(1)}px, 0) translate(-50%, -50%)`;
+
+        // Smooth decay of 3D tilt angles
+        tiltX += (targetTiltX - tiltX) * 0.14;
+        tiltY += (targetTiltY - tiltY) * 0.14;
+        tiltZ += (targetTiltZ - tiltZ) * 0.14;
+        targetTiltX *= 0.86;
+        targetTiltY *= 0.86;
+        targetTiltZ *= 0.86;
+
+        // Apply 3D perspective transform to pointer
+        const scale = isClicking ? 0.84 : isHovering ? 1.12 : 1;
+        cursorPointer.style.transform = `translate3d(${mouseX.toFixed(1)}px, ${mouseY.toFixed(1)}px, 0) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) rotateZ(${tiltZ.toFixed(2)}deg) scale(${scale})`;
+      }
+
+      requestAnimationFrame(renderLoop);
+    };
+
+    requestAnimationFrame(renderLoop);
+  };
+
+  init3DCursor();
 });
